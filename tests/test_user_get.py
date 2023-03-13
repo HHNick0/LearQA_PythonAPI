@@ -13,8 +13,8 @@ class TestUserGet(BaseCase):
 
     def test_get_user_details_auth_as_same_user(self):
         data = {
-        "email": "vinkotov@example.com",
-        "password": "1234"
+            "email": "vinkotov@example.com",
+            "password": "1234"
         }
 
         response1 = MyRequests.post("/user/login", data=data)
@@ -24,8 +24,8 @@ class TestUserGet(BaseCase):
 
         response2 = MyRequests.get(
             f"/user/{user_id_from_auth_method}",
-            headers = {"x-csrf-token": token},
-            cookies = {"auth_sid":auth_sid}
+            headers={"x-csrf-token": token},
+            cookies={"auth_sid":auth_sid}
         )
 
         expected_fields = ["username", "email", "firstName", "lastName"]

@@ -12,7 +12,6 @@ class TestUserEdit(BaseCase):
         Assertions.assert_json_has_key(response1, "id")
 
         email = register_data["email"]
-
         firstname = register_data["firstName"]
         password = register_data["password"]
         user_id = self.get_json_value(response1, "id")
@@ -30,18 +29,20 @@ class TestUserEdit(BaseCase):
 
         #EDIT
         new_name = "Changed Name"
-        response3 = MyRequests.put(f"/user/{user_id}",
-                                 headers={"x-csrf-token": token},
-                                 cookies={"auth_sid": auth_sid},
-                                 data={"firstName": new_name}
+        response3 = MyRequests.put(
+            f"/user/{user_id}",
+            headers={"x-csrf-token": token},
+            cookies={"auth_sid": auth_sid},
+            data={"firstName": new_name}
         )
 
         Assertions.assert_code_status(response3, 200)
 
         #GET
-        response4 = MyRequests.get(f"/user/{user_id}",
-                                 headers={"x-csrf-token": token},
-                                 cookies={"auth_sid": auth_sid}
+        response4 = MyRequests.get(
+            f"/user/{user_id}",
+            headers={"x-csrf-token": token},
+            cookies={"auth_sid": auth_sid}
         )
 
         Assertions.assert_json_value_by_name(response4, "firstName", new_name, "Wrong name of the after edit")
